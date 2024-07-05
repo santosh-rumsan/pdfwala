@@ -1,31 +1,12 @@
 import { Module } from '@nestjs/common';
-import { BullModule } from '@nestjs/bull';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { PdfMakeModule } from './pdfmake/pdf.module';
-import { PdfModule } from './pdf/pdf.module';
-import { TemplatesModule } from './templates/templates.module';
-import { AssetsModule } from './assets/assets.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { ProcessorService } from './processor.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    PdfMakeModule,
-    PdfModule,
-    TemplatesModule,
-    AssetsModule,
-    BullModule.forRootAsync({
-      useFactory: () => ({
-        redis: {
-          host: process.env.REDIS_HOST,
-          port: Number(process.env.REDIS_PORT),
-          password: process.env.REDIS_PASSWORD,
-        },
-      }),
-    }),
 
     MailerModule.forRootAsync({
       imports: [ConfigModule],
@@ -49,7 +30,6 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
       }),
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  providers: [ProcessorService],
 })
 export class AppModule {}

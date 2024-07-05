@@ -1,6 +1,6 @@
-const template = 'grande';
+const template = 'hlb-certificate';
 const data = {
-  firstName: 'Santosh baalsss',
+  fullName: 'Santosh Shrestha',
   lastName: 'Nice',
 };
 

@@ -28,7 +28,7 @@ export function replacePlaceholders(
 
   // Replace placeholders in the template JSON
   const replacedJson = JSON.parse(
-    JSON.stringify(referenceData).replace(/{{(.*?)}}/g, (match, p1) => {
+    JSON.stringify(referenceData.pdf).replace(/{{(.*?)}}/g, (match, p1) => {
       const keys = p1.split('.');
       let value = data;
       for (const key of keys) {
